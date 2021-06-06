@@ -5,6 +5,10 @@
 ### Summoners
 
 ```scala
+trait Summoner[D[_[_]]] {
+  def apply[C[_]: D]: D[C] = implicitly[D[C]]
+}
+
 trait Functor[C[_]] {
     def map[A, B](ca: C[A])(ab: A => B): C[B]
 }
