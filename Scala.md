@@ -33,6 +33,8 @@ The point is, these "laws" can't be encoded in the type system. Some of them, su
 
 ### Subtype and Newtype
 
+#### Differences between Subtype and extend
+
 Me: 
 > Other than being a 3-character change from Newtype in a refactor from Subtype (which is nice), 
 > is there any advantage or important distinction between using the ZIO-style `object Foo extends Subtype[Bar]` vs `class Foo extends Bar`?
@@ -45,6 +47,10 @@ Adam Fraser:
 AF's first point relates to classes declared `final`: we can't extend them directly, but we can `Subtype` them.
 The second point can be achieved via a call to `wrap`, e.g. `Foo.wrap(val)`. Both of these are what we would expect
 from `newtype` in Haskell.
+
+#### Other References
+
+1. Francis Toth's blogpost: [Newtype](https://contramap.dev/posts/2020-04-11-newtypes/) - Introduces this style of Newtyping.
 
 ## zio-test
 
