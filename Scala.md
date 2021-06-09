@@ -20,3 +20,45 @@ object Functor extends Summoner[Functor]
 // }
 ```
 ([source](https://torre.me.uk/docs/category_theory/))
+
+# ZIO
+
+## zio-prelude
+
+### Subtype and Newtype
+
+Me: 
+> Other than being a 3-character change from Newtype in a refactor from Subtype (which is nice), 
+> is there any advantage or important distinction between using the ZIO-style `object Foo extends Subtype[Bar]` vs `class Foo extends Bar`?
+
+Adam Fraser:
+> You can use Subtype for types that could not normally be extended like `object Natural extends Subtype[Int]`.
+> Also Subtype allows the creator of the type to view any instance of the supertype as an instance of the subtype
+> , since they have the same underlying representation, which otherwise would not be true in general.
+
+AF's first point relates to classes declared `final`: we can't extend them directly, but we can `Subtype` them.
+The second point can be achieved via a call to `wrap`, e.g. `Foo.wrap(val)`. Both of these are what we would expect
+from `newtype` in Haskell.
+
+## zio-test
+
+ZIO Test, a toolkit for testing ZIO applications that we will discuss in a later
+chapter, provides a `TestRandom` that does exactly this. In fact, ZIO Test provides
+a test implementation of each of the standard services, and you can imagine
+wanting to provide other implementations, as well.
+
+
+We shouldn’t read too much into the environment signature, because it relies on discipline; we could do:
+
+```scala
+val int: ZIO[Any, Nothing, Int] = ZIO.effectTotal(scala.util.Random.nextInt())
+```
+
+Ideally this would have type `ZIO[Clock, Nothing, Unit]`, but we circumvent that.
+
+As such, we consider the ability to “see” what capabilities a computation uses
+as a secondary and optional benefit of using services. The primary benefit is
+just being able to plug in different implementations in testing and production
+environments.
+
+This is much like in Haskell - pretty much anything can be achieved by using the `IO` type.
