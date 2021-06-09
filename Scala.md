@@ -23,6 +23,12 @@ object Functor extends Summoner[Functor]
 
 # ZIO
 
+## Lawful reasoning
+
+> In this case these guarantees were relatively obvious and we probably did not even need to think about them. But as we learn more in this book we will see that much of the power of ZIO comes from the guarantees it gives us that are less obvious, for example that if a resource is acquired it will always be released or that if our program is interrupted all parts of it will immediately be shut down as quickly as possible.
+
+The point is, these "laws" can't be encoded in the type system. Some of them, such as resource usage, likely could be with linear types. But we as users of the APIs expect that the laws hold.
+
 ## zio-prelude
 
 ### Subtype and Newtype
