@@ -63,3 +63,10 @@ fn get_input() string {
 }
 ```
 
+
+# Libraries
+
+## Data
+
+- [viter](https://github.com/mcastorina/viter) 
+	- > I wrote a pure V implementation of iterators awhile back if you're interested. It uses code generation because at the time generics weren't powerful enough. I'm still waiting for generic interfaces to be supported to rewrite it.
