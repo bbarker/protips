@@ -53,6 +53,20 @@ Point{
 }
 ```
 
+# Modules
+
+## Init functions
+
+If you want a module to automatically call some setup/initialization code when it is imported, you can use a [module init function](https://github.com/vlang/v/blob/master/doc/docs.md#init-functions):
+
+```v
+fn init() {
+	// your setup code here ...
+}
+```
+
+The `init` function cannot be public - it will be called automatically. This feature is particularly useful for initializing a C library.
+
 # Purity
 
 V is not actually pure when it comes to IO, as it notes in the docs. For exampe, this is valid:
