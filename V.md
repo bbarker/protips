@@ -52,3 +52,14 @@ Point{
     y: 0
 }
 ```
+
+# Purity
+
+V is not actually pure when it comes to IO, as it notes in the docs. For exampe, this is valid:
+
+```v
+fn get_input() string {
+  return os.input('Enter a string')
+}
+```
+
