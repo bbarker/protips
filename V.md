@@ -26,3 +26,29 @@ This might be surprising from one standpoint, but is actually more functional in
  Alex M: 
  > yes they need to be compiler magic in order to have optimizations
  > otherwise filter/map chains would be very inefficient
+
+# Maps
+
+Accessing non-existent keys in a map appears to recursively [fill in the "0" values](https://github.com/vlang/v/blob/master/doc/docs.md#maps) for the primitive types.
+```v
+fn main() {
+  numbers := map{
+    'one': Point{1, 1}
+    'two': Point{2, 2}
+  }
+  println(numbers['bad_key'])
+}
+
+struct Point {
+	x int
+	y int
+}
+```
+
+```
+$ v run hello.v 
+Point{
+    x: 0
+    y: 0
+}
+```
