@@ -1,3 +1,11 @@
+# Scala 3
+
+## Refinement types
+
+Currently, Opaque can't be used with inline, but this [may be changing](https://github.com/lampepfl/dotty-feature-requests/issues/82). The reason that it is difficult, [quoting Odersky](https://github.com/lampepfl/dotty-feature-requests/issues/82#issuecomment-599225281):
+
+> This will be next to impossible to achieve. Opaque types rely on location for type-checking. Inline methods rely on moving code to the caller. I see no way to (re-)typecheck inlined code at the call site and at the same time keep typing as if it was at the original location.
+
 # Generic programming
 
 ## Typeclasses
