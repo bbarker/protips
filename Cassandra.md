@@ -1,1 +1,4 @@
 
+# cqlsh
+- supports tab completion
+- 
