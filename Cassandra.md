@@ -8,6 +8,8 @@
   - Custom types composed of other types (like record types)
   - blob types for binary data
   - Collection types: Set, List, Map
+  - UUID / Time UUID
+- Batch commands let you group multiple writes together, but isn't transactional
 
 # cqlsh
 - supports tab completion
