@@ -5,6 +5,7 @@
     2. [Introduction to F# on Binder](https://mybinder.org/v2/gh/dotnet/interactive/main?urlpath=lab) (runs F# online) is 
        [Jupyter notebook](https://jupyter.org/) on hosted via the free Binder service.
     3. [Tour of F#](https://docs.microsoft.com/en-us/dotnet/fsharp/tour) - can run these in one of the above services.
+    4. [MS Learn](https://docs.microsoft.com/en-us/learn/) has multiple modules on F#, and tracks progress.
 
 # Effect systems and type classes
 
