@@ -1,3 +1,11 @@
+# Educational Resources
+
+1. [Get Started with F#](https://docs.microsoft.com/en-us/dotnet/fsharp/get-started/)
+    1. [Fable REPL](https://fable.io/repl/) (runs F# online)
+    2. [Introduction to F# on Binder](https://mybinder.org/v2/gh/dotnet/interactive/main?urlpath=lab) (runs F# online) is 
+       [Jupyter notebook](https://jupyter.org/) on hosted via the free Binder service.
+    3. [Tour of F#](https://docs.microsoft.com/en-us/dotnet/fsharp/tour) - can run these in one of the above services.
+
 # Effect systems and type classes
 
 [From discord](https://discord.com/channels/196693847965696000/196693847965696000/929787262231793675):
