@@ -31,6 +31,26 @@ object Functor extends Summoner[Functor]
 
 # ZIO
 
+## ZLayers
+
+you can also express this:
+
+```scala
+  val layer: URLayer[Has[Session] & Has[CassandraBonusDataConfig], Has[BonusConfigStorage]] =
+    ZLayer.fromServices[Session, CassandraBonusDataConfig, BonusConfigStorage] { (session, config) =>
+      CassandraBonusConfigStorageAdapter(session, config.keyspace, config.bonusConfigTable)
+    }
+```
+
+Like this:
+
+```scala
+val layer = ZIO.services[Session, CassandraBonusDataConfig, BonusConfigStorage].map { 
+  case (session, config, storage) => CassandraBonusConfigStorageAdapter(session, config.keyspace, config.bonusConfigTable)
+}.toLayer
+```
+
+
 ## Lawful reasoning
 
 > In this case these guarantees were relatively obvious and we probably did not even need to think about them. But as we learn more in this book we will see that much of the power of ZIO comes from the guarantees it gives us that are less obvious, for example that if a resource is acquired it will always be released or that if our program is interrupted all parts of it will immediately be shut down as quickly as possible.
