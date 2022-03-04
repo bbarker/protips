@@ -31,6 +31,65 @@ object Functor extends Summoner[Functor]
 
 # ZIO
 
+## Concurrency
+
+### Errors in Concurrent programs
+
+It is important to `join` if we want to allow the completion of the child threads before the parent
+thread finishes. I wasn't doing this, so we never saw `2` printed out below:
+
+```scala
+import scala.annotation.nowarn
+import zio.*
+import zio.clock.Clock
+import zio.duration.*
+import java.io.IOException
+
+object ConcurrencyErrorExperiments {
+
+  val eff1: RIO[Clock, Unit] = for {
+    clock <- ZIO.service[Clock.Service]
+    _     <- UIO(println("1"))
+    _     <- clock.sleep(1.second)
+    _     <- UIO(println("2"))
+  } yield ()
+
+  @nowarn
+  val effWithError: RIO[Clock, Unit] = for {
+    clock <- ZIO.service[Clock.Service]
+    _     <- UIO(println("3"))
+    _     <- clock.sleep(1.second)
+    _     <- ZIO.fail(new NumberFormatException("boom"))
+  } yield ()
+
+  @nowarn
+  val effWithDeffect: RIO[Clock, Unit] = for {
+    clock <- ZIO.service[Clock.Service]
+    _     <- UIO(println("3"))
+    _     <- clock.sleep(1.second)
+    _     <- UIO(throw new IOException("big boom"))
+  } yield ()
+
+  val eff = UIO(println("hello!"))
+  val run: URIO[ZEnv, ExitCode] = ZIO
+    .forkAll(
+      List(
+        eff1.retryN(3),
+        effWithDeffect.retryN(3),
+      ),
+    )
+    .flatMap(_.join)
+    .exitCode
+
+  def main(args: Array[String]): Unit = {
+
+    val exitVal = zio.Runtime.default.unsafeRun(run)
+    println(exitVal)
+  }
+
+}
+```
+
 ## ZLayers
 
 you can also express this:
