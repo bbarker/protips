@@ -119,7 +119,7 @@ resource.use { r =>
 }
 ```
 
-and paying for the cost of initializing and tearing down the resource
+and paying for the cost of initializing and tearing down the resource. -- Calvin Fernandes
 
 ## Lawful reasoning
 
