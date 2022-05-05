@@ -109,7 +109,7 @@ val layer = ZIO.services[Session, CassandraBonusDataConfig, BonusConfigStorage].
 }.toLayer
 ```
 
-## The cost of ZLayer construction
+### The cost of ZLayer construction
 
 `provide` is providing a value directly, whereas `provideLayer` is like saying
 
@@ -120,6 +120,29 @@ resource.use { r =>
 ```
 
 and paying for the cost of initializing and tearing down the resource. -- Calvin Fernandes
+
+
+### Transformation between class dependencies and ZLayer dependencies 
+
+Theres an invertible transformation you can do
+
+
+```scala
+object Service {
+  def call(in: Req): ZIO[Has[SomeDependency], Err, Resp] = ???
+}
+```
+
+you can turn this around:
+
+```scala
+class ServiceAlt(dep: SomeDependency) {
+ def call(in: Req): IO[Err, Resp] = Service.call(in).provide(Has(dep))
+}
+```
+
+-- Calvin Fernandes
+
 
 ## Lawful reasoning
 
