@@ -109,6 +109,17 @@ val layer = ZIO.services[Session, CassandraBonusDataConfig, BonusConfigStorage].
 }.toLayer
 ```
 
+## The cost of ZLayer construction
+
+`provide` is providing a value directly, whereas `provideLayer` is like saying
+
+```scala
+resource.use { r =>
+ ...
+}
+```
+
+and paying for the cost of initializing and tearing down the resource
 
 ## Lawful reasoning
 
