@@ -150,6 +150,7 @@ class ServiceAlt(dep: SomeDependency) {
 
 The point is, these "laws" can't be encoded in the type system. Some of them, such as resource usage, likely could be with linear types. But we as users of the APIs expect that the laws hold.
 
+
 ## zio-prelude
 
 ### Subtype and Newtype
@@ -195,3 +196,14 @@ just being able to plug in different implementations in testing and production
 environments.
 
 This is much like in Haskell - pretty much anything can be achieved by using the `IO` type.
+
+### Making a synchronous process run faster
+
+Sometimes it may be useful to have a synchronous operation that is waiting for something be sped up in
+a test. This can be done by forking, altering the test clock, and joining:
+
+```scala
+  stats  <- makeStats(campaignId).either.fork
+  _      <- TestClock.adjust(31.seconds)
+  result <- stats.join
+```
