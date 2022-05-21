@@ -197,7 +197,7 @@ environments.
 
 This is much like in Haskell - pretty much anything can be achieved by using the `IO` type.
 
-### Making a synchronous process run faster
+### Making a synchronous process run faster in a test
 
 Sometimes it may be useful to have a synchronous operation that is waiting for something be sped up in
 a test. This can be done by forking, altering the test clock, and joining:
@@ -207,3 +207,5 @@ a test. This can be done by forking, altering the test clock, and joining:
   _      <- TestClock.adjust(31.seconds)
   result <- stats.join
 ```
+
+Note that this only works if `makeStats` also uses zio's clock; if it were using `ZonedDateTime` this wouldn't have any effect.
