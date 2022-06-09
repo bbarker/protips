@@ -109,6 +109,26 @@ val layer = ZIO.services[Session, CassandraBonusDataConfig, BonusConfigStorage].
 }.toLayer
 ```
 
+And this:
+
+```scala
+  val liveLayer: URLayer[Has[Uri] & Has[ZioSttpBackend], Has[SegmentsClient]] = for {
+    backend <- ZLayer.service[ZioSttpBackend].map(_.get)
+    root    <- ZLayer.service[Uri].map(_.get)
+  } yield Has(LiveSegmentsClient(backend, root))
+```
+
+like this (which doesn't rely on Has/get, and is thus portable between ZIO 1 and 2:
+
+```scala
+ZLayer.fromEffect(
+  for {
+   backend <- ZIO.service[ZioSttpBackend]
+   root <- ZIO.service[Uri] 
+  } yield LiveSegmentsClient(backend, root)
+)
+```
+
 ### The cost of ZLayer construction
 
 `provide` is providing a value directly, whereas `provideLayer` is like saying
