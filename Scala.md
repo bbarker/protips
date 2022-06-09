@@ -109,6 +109,8 @@ val layer = ZIO.services[Session, CassandraBonusDataConfig, BonusConfigStorage].
 }.toLayer
 ```
 
+---
+
 And this:
 
 ```scala
@@ -127,6 +129,12 @@ ZLayer.fromEffect(
    root <- ZIO.service[Uri] 
   } yield LiveSegmentsClient(backend, root)
 )
+```
+
+But even better:
+
+```scala
+  val layer = (LiveSegmentsClient.apply _).toLayer[SegmentsClient]
 ```
 
 ### The cost of ZLayer construction
