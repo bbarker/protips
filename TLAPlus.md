@@ -9,6 +9,8 @@
 
 # Limitations
 1. TLC can't handle specs with `foo' = x` where x is an integer, whereas TLAPS can.
+  - Although it is more subtle, a good rule of thumb is to only use:
+     `v' = ...` or `v' \in ...` where `...` is an expression not containing a primed variable.
 
 # Invariants
 
