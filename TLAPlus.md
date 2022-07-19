@@ -16,3 +16,7 @@
 
 ## Solution search
   1. Use an invariant that expressed the negation (`foo /= bar`) of what you actually want (`foo = bar`) to find the steps needed to arrive at a solution.
+
+# Values
+
+1. All values are implicitly sets in TLA+. But the elements of sets aren't necessarily specified, so for example, TLC would report an error if trying to evaluate `42 \in "abc"`.
