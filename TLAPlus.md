@@ -20,3 +20,4 @@
 # Values
 
 1. All values are implicitly sets in TLA+. But the elements of sets aren't necessarily specified, so for example, TLC would report an error if trying to evaluate `42 \in "abc"`.
+2. It seems TLA+ does not allow shadowing of named values.
