@@ -21,3 +21,7 @@
 
 1. All values are implicitly sets in TLA+. But the elements of sets aren't necessarily specified, so for example, TLC would report an error if trying to evaluate `42 \in "abc"`.
 2. It seems TLA+ does not allow shadowing of named values.
+
+# Formulas
+
+1. Subformulas that involve only the initial state (no primes) are called *enabling conditions*, and should always go at the beginning of the formula (e.g. the first conjunctions in the formula). This makes the action formula easier to understand, but importantly, also TLC may find the formula intractable if they aren't placed first.
