@@ -7,7 +7,11 @@
   Also note, this doesn't seem to include TLAPS.
 
 
-# Limitations
+# Model Checking
+
+1. Here's a [good discussion](https://groups.google.com/g/tlaplus/c/mTxo-dmpZu0) on what TLA+ does, versus what TLC (a model checker) does.
+
+## Limitations
 1. TLC can't handle specs with `foo' = x` where x is an integer, whereas TLAPS can.
   - Although it is more subtle, a good rule of thumb is to only use:
      `v' = ...` or `v' \in ...` where `...` is an expression not containing a primed variable.
@@ -25,3 +29,4 @@
 # Formulas
 
 1. Subformulas that involve only the initial state (no primes) are called *enabling conditions*, and should always go at the beginning of the formula (e.g. the first conjunctions in the formula). This makes the action formula easier to understand, but importantly, also TLC may find the formula intractable if they aren't placed first.
+
