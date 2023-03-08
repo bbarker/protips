@@ -8,6 +8,43 @@ Currently, Opaque can't be used with inline, but this [may be changing](https://
 
 # Generic programming
 
+## Reflection
+
+### Get class type generically
+
+(Scala 3)  you have to explicitly reference the evidence.
+
+Thanks to Mihai for [digging this](https://scastie.scala-lang.org/tXXihnskSuK0PSqxHxzrTw) up:
+
+
+```scala
+enum ErrorResponse:
+  case BadRequest(message: String)
+  case NotFound(message: String)
+  case Conflict(message: String)
+  case UnprocessableEntity(message: String)
+  case InternalServerError(message: String)
+
+def someFun[AppliesTo <: ErrorResponse](implicit ev: scala.reflect.ClassTag[AppliesTo]) = ev.runtimeClass
+
+someFun[ErrorResponse.BadRequest] == scala.Predef.classOf[ErrorResponse.BadRequest]
+
+```
+
+option 1:
+
+```scala
+private def oneOfErrorResponse[AppliesTo <: ErrorResponse: ClassTag](statusCode: StatusCode) =
+    oneOfVariantClassMatcher(statusCode, jsonBody[ErrorResponse], summon[ClassTag[AppliesTo]].runtimeClass)
+```
+
+option 2:
+
+```scala
+private def oneOfErrorResponse[AppliesTo <: ErrorResponse](statusCode: StatusCode)(using ev: ClassTag[AppliesTo]) =
+    oneOfVariantClassMatcher(statusCode, jsonBody[ErrorResponse], ev.runtimeClass)
+```
+
 ## Typeclasses
 
 ### Summoners
